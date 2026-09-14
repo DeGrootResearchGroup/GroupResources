@@ -57,8 +57,8 @@ where
 - $\varepsilon$ is a tiny constant (`solverPerformance::small_`) that prevents division by zero.
 
 In words, $n$ measures how far both $\mathbf{A}\psi$ and $\mathbf{b}$ are from what a uniform field would
-give. Because this scaling is relative to the field's own variation, the residual is dimensionless and
-does not depend on the field's units or on adding a constant to $\psi$. The source code comments note
+give. Because $n$ scales the same way as the residual sum, the reported residual is dimensionless and
+does not depend on the units of the field. The source code comments note
 that at convergence @eq-norm-factor is equivalent to $2\sum_i |b_i|$.
 
 ::: {.callout-tip}
@@ -86,7 +86,8 @@ It answers the question: *how well does the current solution satisfy the equatio
 been assembled?* Because $\mathbf{A}$ and $\mathbf{b}$ are rebuilt from the latest solution at each outer
 iteration, the initial residual is the quantity that tracks convergence of the **non-linear, coupled
 problem** (the SIMPLE or PIMPLE loop), not just the linear solve. This is why convergence plots
-and `residualControl` use initial residuals (see @sec-convergence-controls).
+and `residualControl` use initial residuals (see
+[Convergence controls and residual output](#sec-convergence-controls)).
 
 ## Final residual
 
@@ -125,8 +126,8 @@ solver:
 
 ## Vector and tensor fields
 
-For fields such as `U`, segregated solution is used by default: each component is solved as a separate
-scalar system, so you see separate lines for `Ux`, `Uy` and `Uz`, each with its own normalisation
+For fields such as `U` solved with the usual segregated solvers, each component is solved as a
+separate scalar system, so you see separate lines for `Ux`, `Uy` and `Uz`, each with its own normalisation
 factor, residuals and iteration count. Components that are not solved (for example the empty direction
 in a 2D case) are skipped and do not appear. Where a single number is needed for a vector field (for
 example in `residualControl`), OpenFOAM uses the largest component residual.
