@@ -15,6 +15,9 @@ students and researchers working in computational fluid dynamics and related are
 [Software](software/index.qmd)
 : Practical how-tos for the tools the group uses, such as matplotlib and ParaView.
 
+[OpenFOAM](openfoam/index.qmd)
+: Notes on using and understanding OpenFOAM, the group's main CFD code, from reading solver output to case setup.
+
 [Policies](policies/index.qmd)
 : General, publicly shareable information on how the lab operates.
 
