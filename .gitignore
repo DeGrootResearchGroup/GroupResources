@@ -1,0 +1,17 @@
+# Quarto build artifacts
+/_site/
+/.quarto/
+**/*.quarto_ipynb
+
+# Note: _freeze/ is intentionally committed (cached output of executed code).
+
+# Python
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,26 @@
+---
+title: "DeGroot Research Group Resources"
+toc: false
+---
+
+Welcome to the public knowledge base of the DeGroot Research Group at Western University. It collects
+practical know-how and background notes that group members have found useful, written by and for
+students and researchers working in computational fluid dynamics and related areas.
+
+## Sections
+
+[Theory](theory/index.qmd)
+: Explainers on CFD and numerical methods, such as gradient reconstruction, discretization schemes and solver algorithms.
+
+[Software](software/index.qmd)
+: Practical how-tos for the tools the group uses, such as matplotlib and ParaView.
+
+[Policies](policies/index.qmd)
+: General, publicly shareable information on how the lab operates.
+
+## Contributing
+
+Group members add and improve pages through pull requests on
+[GitHub](https://github.com/DeGrootResearchGroup/GroupResources). See the
+[contributing guide](https://github.com/DeGrootResearchGroup/GroupResources/blob/main/CONTRIBUTING.md)
+to get started.

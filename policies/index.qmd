@@ -1,0 +1,19 @@
+---
+title: "Policies"
+description: "General, publicly shareable information on how the lab operates."
+categories: [Policies]
+listing:
+  contents: "*.qmd"
+  type: table
+  sort: title
+  fields: [title, description]
+---
+
+General information about how the group operates, such as expectations for meetings, code and data
+management practices, and publication workflows. Only information that is appropriate to share
+publicly belongs here.
+
+::: {.callout-note}
+## Content to expand
+No policy pages have been added yet.
+:::

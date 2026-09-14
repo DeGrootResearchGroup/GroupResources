@@ -1,0 +1,55 @@
+project:
+  type: website
+  output-dir: _site
+  # Only .qmd files are site pages; README.md, CONTRIBUTING.md etc. are repository docs.
+  render:
+    - "*.qmd"
+    - "**/*.qmd"
+
+website:
+  title: "DeGroot Research Group Resources"
+  description: "Public knowledge base for the DeGroot Research Group at Western University."
+  site-url: https://degrootresearchgroup.github.io/GroupResources/
+  repo-url: https://github.com/DeGrootResearchGroup/GroupResources
+  repo-actions: [edit, source, issue]
+  search:
+    location: navbar
+    type: overlay
+  navbar:
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Theory
+        href: theory/index.qmd
+      - text: Software
+        href: software/index.qmd
+      - text: Policies
+        href: policies/index.qmd
+    right:
+      - icon: github
+        href: https://github.com/DeGrootResearchGroup/GroupResources
+        aria-label: GitHub repository
+  # One auto-generated sidebar per section: new pages appear without editing this file.
+  sidebar:
+    - title: "Theory"
+      contents: theory
+    - title: "Software"
+      contents: software
+    - title: "Policies"
+      contents: policies
+  page-footer:
+    left: "Content licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Code licensed MIT."
+    right: "DeGroot Research Group, Western University"
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    toc: true
+    code-copy: true
+    html-math-method: katex
+
+execute:
+  # Re-execute code cells only when a page's source changes. The _freeze/ directory is committed.
+  freeze: auto

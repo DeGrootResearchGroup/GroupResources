@@ -1,0 +1,14 @@
+---
+title: "Software"
+description: "Practical how-tos for tools the group uses."
+categories: [Software]
+listing:
+  contents: "*.qmd"
+  type: table
+  sort: title
+  fields: [title, description]
+---
+
+Hands-on guides for the software the group uses day to day: plotting, visualization, meshing,
+simulation codes, version control and so on. Where possible, examples execute when the site is
+built, so the output shown is always what the code really produces.

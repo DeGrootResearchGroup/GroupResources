@@ -1,0 +1,19 @@
+---
+title: "ParaView Plot Types"
+description: "Choosing and configuring common ParaView visualizations for CFD results."
+categories: [Software, ParaView]
+---
+
+ParaView offers many ways to look at simulation results, and picking the right one depends on what
+you want to show: a contour plot to show the overall structure of a field, streamlines or glyphs to
+show a velocity field, or a line plot to extract quantitative profiles for comparison with
+experimental data.
+
+::: {.callout-note}
+## Content to expand
+- Surface and slice colouring, and choosing colour maps and ranges
+- Contours and iso-surfaces
+- Streamlines (Stream Tracer) and glyphs
+- Plot Over Line for extracting profiles
+- Saving state files and scripting with `pvpython` for reproducible figures
+:::

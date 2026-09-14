@@ -1,0 +1,14 @@
+---
+title: "Theory"
+description: "CFD and numerical methods explainers."
+categories: [Theory]
+listing:
+  contents: "*.qmd"
+  type: table
+  sort: title
+  fields: [title, description]
+---
+
+Notes on the theory behind the methods the group uses and develops: finite volume discretization,
+gradient reconstruction, interpolation schemes, linear solvers and related topics. Pages aim to
+explain the ideas clearly and point to the primary literature.

@@ -1,0 +1,42 @@
+---
+title: "Gradient Reconstruction"
+description: "Estimating cell-centred gradients on unstructured finite volume meshes."
+categories: [Theory, finite volume]
+---
+
+In a cell-centred finite volume method the solution is stored as one value per cell, but many terms
+in the discretized equations (diffusive fluxes on non-orthogonal meshes, higher-order convection
+schemes, source terms) need the gradient of that field. Gradient reconstruction is the process of
+estimating $\nabla \phi$ at each cell centre from the values in that cell and its neighbours.
+
+## Green-Gauss {#sec-green-gauss}
+
+Applying the divergence theorem over a control volume $P$ with volume $V_P$ gives
+
+$$
+\nabla \phi_P \approx \frac{1}{V_P} \sum_{f} \phi_f \, \mathbf{S}_f,
+$$ {#eq-green-gauss}
+
+where $\phi_f$ is the value interpolated to face $f$ and $\mathbf{S}_f$ is the outward face area vector.
+The accuracy of @eq-green-gauss depends heavily on how $\phi_f$ is obtained.
+
+## Least squares {#sec-least-squares}
+
+The least-squares approach instead chooses $\nabla \phi_P$ to minimize the weighted error in a
+first-order Taylor expansion to each neighbour $k$:
+
+$$
+\min_{\nabla \phi_P} \sum_{k} w_k \left( \phi_k - \phi_P - \nabla \phi_P \cdot \mathbf{d}_k \right)^2,
+$$ {#eq-least-squares}
+
+where $\mathbf{d}_k$ is the vector from the centre of $P$ to the centre of neighbour $k$. Compare
+this with the Green-Gauss approach in @sec-green-gauss.
+
+::: {.callout-note}
+## Content to expand
+- Derivation of both methods and their order of accuracy on skewed meshes
+- Choice of weights $w_k$ in @eq-least-squares
+- Iterative corrections for Green-Gauss face values
+- Gradient limiters
+- References to the primary literature
+:::

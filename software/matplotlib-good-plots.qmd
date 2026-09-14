@@ -1,0 +1,41 @@
+---
+title: "Making Good Plots with Matplotlib"
+description: "Producing clear, publication-quality figures with matplotlib."
+categories: [Software, matplotlib, Python]
+jupyter: python3
+---
+
+Matplotlib's defaults are designed for quick interactive exploration, not for figures in a thesis
+or journal article. A few deliberate choices (figure size matched to the final column width, labelled
+axes with units, readable font sizes, distinguishable line styles) make a large difference.
+
+The code below runs every time this page's source changes, and @fig-example shows its actual output.
+
+```{python}
+#| label: fig-example
+#| fig-cap: "Decay of a sinusoidal signal, with axis labels, units and a legend."
+#| echo: true
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 10, 500)
+tau = 3.0
+
+fig, ax = plt.subplots(figsize=(6, 3.5), layout="constrained")
+ax.plot(t, np.exp(-t / tau) * np.cos(2 * np.pi * t), label="signal")
+ax.plot(t, np.exp(-t / tau), "--", color="0.4", label=r"envelope $e^{-t/\tau}$")
+ax.set_xlabel("Time, $t$ (s)")
+ax.set_ylabel("Amplitude (-)")
+ax.set_xlim(t[0], t[-1])
+ax.legend(frameon=False)
+plt.show()
+```
+
+::: {.callout-note}
+## Content to expand
+- Setting figure size to match journal column widths
+- Fonts, LaTeX labels and consistent styling with `rcParams` or style sheets
+- Colour-blind-friendly colour maps and line styles
+- Exporting vector (PDF/SVG) versus raster (PNG) output
+:::

@@ -1,0 +1,12 @@
+{
+  "hash": "921e8eda681a7afc567cefd02d38daab",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Making Good Plots with Matplotlib\"\ndescription: \"Producing clear, publication-quality figures with matplotlib.\"\ncategories: [Software, matplotlib, Python]\njupyter: python3\n---\n\nMatplotlib's defaults are designed for quick interactive exploration, not for figures in a thesis\nor journal article. A few deliberate choices (figure size matched to the final column width, labelled\naxes with units, readable font sizes, distinguishable line styles) make a large difference.\n\nThe code below runs every time this page's source changes, and @fig-example shows its actual output.\n\n::: {#cell-fig-example .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nt = np.linspace(0, 10, 500)\ntau = 3.0\n\nfig, ax = plt.subplots(figsize=(6, 3.5), layout=\"constrained\")\nax.plot(t, np.exp(-t / tau) * np.cos(2 * np.pi * t), label=\"signal\")\nax.plot(t, np.exp(-t / tau), \"--\", color=\"0.4\", label=r\"envelope $e^{-t/\\tau}$\")\nax.set_xlabel(\"Time, $t$ (s)\")\nax.set_ylabel(\"Amplitude (-)\")\nax.set_xlim(t[0], t[-1])\nax.legend(frameon=False)\nplt.show()\n```\n\n::: {.cell-output .cell-output-display}\n![Decay of a sinusoidal signal, with axis labels, units and a legend.](matplotlib-good-plots_files/figure-html/fig-example-output-1.png){#fig-example width=587 height=347}\n:::\n:::\n\n\n::: {.callout-note}\n## Content to expand\n- Setting figure size to match journal column widths\n- Fonts, LaTeX labels and consistent styling with `rcParams` or style sheets\n- Colour-blind-friendly colour maps and line styles\n- Exporting vector (PDF/SVG) versus raster (PNG) output\n:::\n\n",
+    "supporting": [
+      "matplotlib-good-plots_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
