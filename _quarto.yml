@@ -23,6 +23,8 @@ website:
         href: theory/index.qmd
       - text: Software
         href: software/index.qmd
+      - text: OpenFOAM
+        href: openfoam/index.qmd
       - text: Policies
         href: policies/index.qmd
     right:
@@ -35,6 +37,8 @@ website:
       contents: theory
     - title: "Software"
       contents: software
+    - title: "OpenFOAM"
+      contents: openfoam
     - title: "Policies"
       contents: policies
   page-footer:

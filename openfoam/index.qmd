@@ -1,0 +1,21 @@
+---
+title: "OpenFOAM"
+description: "Using and understanding OpenFOAM."
+categories: [OpenFOAM]
+listing:
+  contents: "*.qmd"
+  type: table
+  sort: title
+  fields: [title, description]
+---
+
+OpenFOAM is one of the main CFD codes used in the group. These pages cover practical use (case
+setup, solver settings, post-processing, running in parallel) and explain what the code is 
+actually doing, with references to the source code where that matters.
+
+There are two actively developed versions of OpenFOAM with a shared history:
+[openfoam.org](https://openfoam.org) (the OpenFOAM Foundation, developed at
+[OpenFOAM/OpenFOAM-dev](https://github.com/OpenFOAM/OpenFOAM-dev)) and
+[openfoam.com](https://www.openfoam.com) (ESI-OpenCFD, developed at
+[openfoam/core/openfoam](https://gitlab.com/openfoam/core/openfoam)). Keyword names, utilities and
+solver output can differ between them, so pages should say which version they apply to.

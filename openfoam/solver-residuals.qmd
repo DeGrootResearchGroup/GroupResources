@@ -1,0 +1,207 @@
+---
+title: "Initial and Final Residuals in OpenFOAM"
+description: "**Goal:** Learn how to interpret the initial and final residuals reported in OpenFOAM."
+categories: [OpenFOAM, linear solvers, convergence]
+---
+
+Every time an OpenFOAM solver solves a linear system it prints a line like this (the numbers are
+illustrative):
+
+```
+smoothSolver:  Solving for Ux, Initial residual = 0.0123, Final residual = 9.8e-05, No Iterations 4
+GAMG:  Solving for p, Initial residual = 0.0457, Final residual = 0.000412, No Iterations 7
+```
+
+This page explains exactly what those numbers are. Everything here was checked against the source
+code of both OpenFOAM versions; see [Source code references](#sec-sources). Where the two versions
+differ, it says so.
+
+## What is being solved
+
+Each `solve()` call works with a linear system for one field $\psi$ (`p`, `k`, one component of `U`, etc.):
+
+$$
+\mathbf{A}\,\psi = \mathbf{b},
+$$ {#eq-system}
+
+where $\mathbf{A}$ and $\mathbf{b}$ are the matrix and source as they stand at the moment of the
+solve, including boundary condition contributions and any modifications made beforehand, such as
+under-relaxation. The residual vector for a given approximate solution $\psi$ is
+
+$$
+\mathbf{r} = \mathbf{b} - \mathbf{A}\,\psi .
+$$ {#eq-residual-vector}
+
+## How the residual is computed {#sec-definition}
+
+OpenFOAM does not report $\lVert\mathbf{r}\rVert$ directly. It reports a **scaled L1 norm**: the sum of
+the absolute residuals over all cells (and all processors), divided by a normalization factor $n$:
+
+$$
+\text{residual} = \frac{1}{n} \sum_i \left| b_i - [\mathbf{A}\psi]_i \right| .
+$$ {#eq-scaled-residual}
+
+The normalization factor is computed once **per solve**, from the starting field, in
+`lduMatrix::solver::normFactor`:
+
+$$
+n = \sum_i \Big( \big| [\mathbf{A}\psi]_i - [\mathbf{A}\mathbf{1}]_i\,\bar\psi \big|
+             + \big| b_i - [\mathbf{A}\mathbf{1}]_i\,\bar\psi \big| \Big) + \varepsilon ,
+$$ {#eq-norm-factor}
+
+where
+
+- $\bar\psi$ is the arithmetic (not volume-weighted) average of $\psi$ over all cells,
+- $[\mathbf{A}\mathbf{1}]_i$ is the sum of the coefficients in row $i$ (`sumA`), so $[\mathbf{A}\mathbf{1}]_i\,\bar\psi$ is
+  the matrix applied to a uniform field equal to the average,
+- $\varepsilon$ is a tiny constant (`solverPerformance::small_`) that prevents division by zero.
+
+In words, $n$ measures how far both $\mathbf{A}\psi$ and $\mathbf{b}$ are from what the uniform 
+field (based on the initial condition) would give. Because $n$ scales the same way as the residual 
+sum, the reported residual is dimensionless and does not depend on the units of the field. The 
+source code comments note that at convergence @eq-norm-factor is equivalent to $2\sum_i |b_i|$.
+
+::: {.callout-tip}
+## Why the first residual is often exactly 1
+If $\psi$ is uniform (as it often is at the first iteration of a case initialized with uniform
+values), then $\mathbf{A}\psi = [\mathbf{A}\mathbf{1}]\,\bar\psi$. The first term of @eq-norm-factor
+vanishes, $n$ becomes $\sum_i |r_i|$, and @eq-scaled-residual gives exactly 1.
+:::
+
+::: {.callout-note}
+## openfoam.com: the `norm` keyword
+openfoam.com lets you choose the normalization with a `norm` entry in the solver dictionary in
+`fvSolution`: `default` and `L1_scaled` both use @eq-norm-factor, and `none` sets $n = 1$, so the
+reported value is the raw, unscaled $\sum_i |r_i|$. openfoam.org has no such option and always uses
+@eq-norm-factor.
+:::
+
+## Initial residual
+
+The **initial residual** is @eq-scaled-residual evaluated with the field *before the linear solver does
+any work*, i.e. using the values from the previous outer iteration or time step as the starting guess.
+
+The initial residual answers the question: *how well does the current solution satisfy the equations as 
+they have just been assembled?* Because $\mathbf{A}$ and $\mathbf{b}$ are rebuilt from the latest 
+solution at each outer iteration, the initial residual is the quantity that tracks convergence of the 
+**non-linear, coupled problem** (the SIMPLE or PIMPLE loop), not just the linear solve. This is why 
+convergence plots and `residualControl` use initial residuals (see
+[Convergence controls and residual output](#sec-convergence-controls)).
+
+## Final residual
+
+The **final residual** is @eq-scaled-residual evaluated with the field *after the linear solver stops*,
+using the same normalization factor $n$ computed at the start. It only tells you **how accurately this
+particular linear system was solved**. It says nothing about whether the overall solution has converged,
+since the next outer iteration assembles a new system.
+
+## When the linear solver stops
+
+After each linear solver iteration (not to be confused with the non-linear iterations performed by, 
+for example, the SIMPLE or PIMPLE loop), the solver checks (in `SolverPerformance::checkConvergence`) 
+whether
+
+$$
+\text{final residual} < \texttt{tolerance} \\
+\quad\text{or}\quad \\
+\big(\texttt{relTol} > 0 \ \text{and}\ \text{final residual} < \texttt{relTol} \times \text{initial residual}\big),
+$$ {#eq-stopping}
+
+and keeps iterating while this is false and fewer than `maxIter` iterations have been done, or while
+fewer than `minIter` iterations have been done. `tolerance`, `relTol`, `minIter` and `maxIter` are set per
+field in `fvSolution`. Note that these are all referring to the linear solver that solves the matrix system for one field, not the outer iteration loop.
+
+The convergence check is also made *before* the first linear solver iteration, using its initial residual. 
+If the initial residual already satisfies @eq-stopping (and `minIter` is 0), the solver returns without
+iterating.
+
+## No Iterations
+
+`No Iterations` is the number of solver iterations performed. What one iteration means depends on the
+solver:
+
+- **PCG / PBiCGStab:** one Krylov iteration.
+- **GAMG:** one multigrid V-cycle.
+- **smoothSolver:** the counter increases by `nSweeps` each time. The residual is only evaluated after
+  every `nSweeps` sweeps, so the count is always a multiple of `nSweeps` (default 1).
+
+## Vector and tensor fields
+
+For fields such as `U` solved with the usual segregated solvers, each component is solved as a
+separate scalar system, so you see separate lines for `Ux`, `Uy` and `Uz`, each with its own normalization
+factor, residuals and iteration count. Components that are not solved (for example the empty direction
+in a 2D case) are skipped and do not appear. Where a single number is needed for a vector field (for
+example in `residualControl`), OpenFOAM uses the largest component residual.
+
+## Reading the log in practice
+
+`No Iterations 0`
+: The initial residual already met `tolerance` (or `relTol`). This is common for well-converged
+  steady cases or small time steps. It is not an error.
+
+Final residual ≈ `relTol` × initial residual
+: The solver stopped on `relTol`. This is intentional for most fields in SIMPLE/PIMPLE, where there
+  is no point solving tightly an equation whose coefficients will change next iteration. PIMPLE cases
+  usually use `relTol 0` in the `*Final` solver entries, so the last corrector is solved to `tolerance`.
+
+Final residual not much smaller than initial, `No Iterations` = `maxIter`
+: The linear solver is failing to converge. Check the solver and preconditioner choice, mesh quality
+  and boundary conditions.
+
+Initial residuals falling steadily, then levelling off
+: Typical of a converged steady case. Where they level off depends on the mesh, discretization and
+  physics, so there is no universal target value.
+
+Small initial residuals but a wrong answer
+: Residuals measure how well the discrete equations are satisfied, not discretization error or
+  whether the setup is physically right. Also monitor physical quantities (forces, flow rates, probe
+  values).
+
+## Convergence controls and residual output {#sec-convergence-controls}
+
+The two versions differ in exactly which initial residual they use.
+
+**openfoam.org**
+
+- `SIMPLE { residualControl { p 1e-4; … } }` compares the **initial** residual of the **first**
+  solve of each field in the iteration against the given tolerance.
+- `PIMPLE { outerCorrectorResidualControl { p { tolerance …; relTol …; } } }` compares the
+  **initial** residual of the first solve in the current outer corrector against `tolerance`, and its
+  ratio to the initial residual of the first solve in the time step against `relTol`.
+- The `residuals` function object writes the **initial** residual of the first solve of each field in
+  each time step.
+
+**openfoam.com**
+
+- `SIMPLE { residualControl { … } }` compares the **initial** residual of the **first** solve in the
+  iteration against the given tolerance.
+- `PIMPLE { residualControl { p { tolerance …; relTol …; } } }` is not checked on the first or the
+  final outer corrector. From the second outer corrector on, it compares the **initial** residual of
+  the most recent solve against `tolerance`, and against `relTol` times the initial residual recorded
+  at the second outer corrector.
+- The `solverInfo` function object writes the initial residual, final residual and iteration count of
+  the first solve of each field in each time step.
+
+Tools such as `foamLog` and most residual plots show **initial** residuals.
+
+## Source code references {#sec-sources}
+
+Checked against openfoam.org `OpenFOAM-dev` at commit
+[`b85fd1a`](https://github.com/OpenFOAM/OpenFOAM-dev/tree/b85fd1a91bccf83efd88af218ee646fa97427903)
+(2026-09-14) and openfoam.com `develop` at commit
+[`6e25957`](https://gitlab.com/openfoam/core/openfoam/-/tree/6e2595746a396d688edd9890f4aebaaa7ff4ecfd)
+(2026-07-28). File paths are the same in both unless noted.
+
+| What | openfoam.org | openfoam.com |
+|---|---|---|
+| Normalisation factor, @eq-norm-factor | [lduMatrixSolver.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrixSolver.C#L174-L197) | [lduMatrixSolver.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/OpenFOAM/matrices/lduMatrix/lduMatrix/lduMatrixSolver.C#L235-274) |
+| Initial and final residual (PCG example) | [PCG.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/OpenFOAM/matrices/lduMatrix/solvers/PCG/PCG.C#L97-L187) | [PCG.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/OpenFOAM/matrices/lduMatrix/solvers/PCG/PCG.C#L111-201) |
+| Stopping criterion and log line | [SolverPerformance.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/OpenFOAM/matrices/LduMatrix/LduMatrix/SolverPerformance.C#L60-L126) | [SolverPerformance.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/OpenFOAM/matrices/LduMatrix/LduMatrix/SolverPerformance.C#L63-121) |
+| Segregated vector solve | [fvMatrixSolve.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/finiteVolume/fvMatrices/fvMatrix/fvMatrixSolve.C#L105) | [fvMatrixSolve.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/finiteVolume/fvMatrices/fvMatrix/fvMatrixSolve.C#L111) |
+| Other solvers | [smoothSolver.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/OpenFOAM/matrices/lduMatrix/solvers/smoothSolver/smoothSolver.C), [GAMGSolverSolve.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/OpenFOAM/matrices/lduMatrix/solvers/GAMG/GAMGSolverSolve.C) | [smoothSolver.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/OpenFOAM/matrices/lduMatrix/solvers/smoothSolver/smoothSolver.C), [GAMGSolverSolve.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/OpenFOAM/matrices/lduMatrix/solvers/GAMG/GAMGSolverSolve.C) |
+| Residual controls | [singleRegionConvergenceControl.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/finiteVolume/cfdTools/general/solutionControl/convergenceControl/singleRegionConvergenceControl/singleRegionConvergenceControl.C#L165-L180), [singleRegionCorrectorConvergenceControl.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/finiteVolume/cfdTools/general/solutionControl/convergenceControl/singleRegionCorrectorConvergenceControl/singleRegionCorrectorConvergenceControl.C#L192-L210) | [simpleControl.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/finiteVolume/cfdTools/general/solutionControl/simpleControl/simpleControl.C#L49-88), [pimpleControl.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/finiteVolume/cfdTools/general/solutionControl/pimpleControl/pimpleControl.C#L61-126) |
+| Residual output | [residualsTemplates.C](https://github.com/OpenFOAM/OpenFOAM-dev/blob/b85fd1a91bccf83efd88af218ee646fa97427903/src/functionObjects/utilities/residuals/residualsTemplates.C#L79) | [solverInfoTemplates.C](https://gitlab.com/openfoam/core/openfoam/-/blob/6e2595746a396d688edd9890f4aebaaa7ff4ecfd/src/functionObjects/utilities/solverInfo/solverInfoTemplates.C#L129-130) |
+
+
+As of the date of writing, the same normalization factor is used by all the standard `lduMatrix` solvers: 
+PCG, PBiCG, PBiCGStab, GAMG and smoothSolver in both versions, plus FPCG and PPCG in openfoam.com. 

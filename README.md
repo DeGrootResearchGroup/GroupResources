@@ -28,6 +28,7 @@ _quarto.yml      Site configuration (navigation, theme, execution)
 index.qmd        Home page
 theory/          CFD and numerical methods explainers
 software/        How-tos for tools the group uses
+openfoam/        Using and understanding OpenFOAM
 policies/        General lab operating information
 _freeze/         Cached output of executed code (committed)
 ```
