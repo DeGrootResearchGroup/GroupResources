@@ -30,6 +30,10 @@ theory/          CFD and numerical methods explainers
 software/        How-tos for tools the group uses
 openfoam/        Using and understanding OpenFOAM
 policies/        General lab operating information
+templates/       Reusable starting points (e.g. the presentation template); not part of the site
+                 build directly, but software/presentation-template.qmd links to a zip of it that
+                 scripts/build_presentation_template_zip.py rebuilds before every render
+scripts/         Build helper scripts (pre-render hooks etc.), not site pages
 _freeze/         Cached output of executed code (committed)
 ```
 

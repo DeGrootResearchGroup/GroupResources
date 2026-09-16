@@ -3,6 +3,14 @@
 /.quarto/
 **/*.quarto_ipynb
 
+# Rendered output of the standalone presentation template (source is the .qmd/.scss)
+/templates/presentation/template.html
+/templates/presentation/template_files/
+
+# Downloadable template zip, regenerated from templates/presentation/ on every
+# render by scripts/build_presentation_template_zip.py
+/software/presentation-template-files/
+
 # Note: _freeze/ is intentionally committed (cached output of executed code).
 
 # Python

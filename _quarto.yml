@@ -1,10 +1,16 @@
 project:
   type: website
   output-dir: _site
+  # Rebuilds the downloadable template zip from templates/presentation/ before
+  # every render/preview, so it can't go stale. See the script for why.
+  pre-render: scripts/build_presentation_template_zip.py
   # Only .qmd files are site pages; README.md, CONTRIBUTING.md etc. are repository docs.
   render:
     - "*.qmd"
     - "**/*.qmd"
+    # The presentation template is a standalone revealjs starter (rendered and
+    # shared on its own), not a knowledge-base page — keep it out of the site.
+    - "!templates/"
 
 website:
   title: "DeGroot Research Group Resources"
@@ -50,6 +56,7 @@ format:
     theme:
       light: cosmo
       dark: darkly
+    css: styles.css
     toc: true
     code-copy: true
     html-math-method: katex

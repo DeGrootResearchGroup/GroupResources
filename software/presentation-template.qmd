@@ -1,0 +1,87 @@
+---
+title: "Research Presentation Template (Quarto)"
+description: "The group's branded Quarto slide template, and how to install Quarto to use it."
+categories: [Software, Quarto, Presentations]
+---
+
+This page presents a [Quarto](https://quarto.org) [reveal.js](https://revealjs.com) slide
+template for talks, defenses, group meetings, etc. The template features Western
+purple headings, a footer with the Western Engineering logo, and a fixed 16:9 slide size. 
+Titles sit in a consistent header position at the top of every slide, following the
+[Assertion-Evidence](https://www.assertion-evidence.com/) approach to research-slide design.
+
+## Download
+
+[**Download the template (.zip)**](presentation-template-files/presentation-template.zip)
+
+Unzip it wherever you keep the talk, and rename `template.qmd` to something meaningful (e.g.
+`csme-talk.qmd`). The template includes four files: the slide source (`template.qmd`), the 
+theme (`theme.scss`), the Western Engineering logo (`img/logo.png`), and a `README.md` with
+maintainer-level notes on the CSS if you need to customize the layout further.
+
+To browse the source instead, or grab a single file, it's in the repository at
+[`templates/presentation/`](https://github.com/DeGrootResearchGroup/GroupResources/tree/main/templates/presentation).
+
+## Install Quarto
+
+Quarto is a free command-line tool; you don't need R or Python to build slides with it.
+
+1. Download the installer for your OS from
+   [quarto.org/docs/get-started](https://quarto.org/docs/get-started/) and run it.
+2. Open a terminal (**Terminal** on macOS, **PowerShell** on Windows) and confirm it installed:
+
+   ```bash
+   quarto check
+   ```
+
+   This prints Quarto's version and confirms it can find a browser to preview in — that's all you
+   need for this template (its checks for TeX/Jupyter/knitr don't matter here since the template
+   has no executable code).
+3. Optional but recommended: install the
+   [Quarto extension for VS Code](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
+   if you edit in VS Code — it adds a live preview pane and syntax highlighting for `.qmd` files.
+
+## Render and preview
+
+From a terminal, `cd` into the folder you unzipped, then:
+
+```bash
+quarto preview slides.qmd
+```
+
+This opens the deck in your browser and reloads it automatically as you edit and save. Use the
+arrow keys or space bar to move between slides, `s` to open speaker notes, and `f` for fullscreen.
+
+## Customize
+
+Edit the YAML at the top of `slides.qmd`:
+
+```yaml
+title: "Your Talk Title"
+author: "Your Name"
+institute: "Your Department<br>Western University"
+footer: "Your conference or committee name"
+```
+
+Then replace the example slides with your own content. Two-column layouts
+(`::: {.columns}` / `::: {.column width="50%"}`), math (`$...$`), code blocks and speaker notes
+(`::: {.notes}`) are all demonstrated in the template — copy whichever pattern you need.
+
+To change colours, fonts or the footer layout, edit `theme.scss`; it's plain CSS with comments
+explaining the less obvious parts. To use a different logo, replace `img/logo.png` and update the
+`logo:` path in the YAML if you rename it.
+
+## Export to PDF
+
+To create a PDF that can be more easily distributed, use
+[decktape](https://github.com/astefanutti/decktape), which drives a real reveal.js presentation
+page-by-page rather than relying on browser print layout:
+
+```bash
+npx decktape reveal slides.html slides.pdf
+```
+
+This needs [Node.js](https://nodejs.org) installed (`npx` comes with it) — check with `node -v` in
+your terminal, or install it from [nodejs.org](https://nodejs.org) if that command isn't found. You
+can also print the deck manually from a browser — see `README.md` in the download for the
+alternative and its trade-offs.
