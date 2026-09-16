@@ -18,6 +18,9 @@ students and researchers working in computational fluid dynamics and related are
 [OpenFOAM](openfoam/index.qmd)
 : Notes on using and understanding OpenFOAM, the group's main CFD code, from reading solver output to case setup.
 
+[Project Management](project-management/index.qmd)
+: How we plan and track research work, from termly objectives down to the tools that run the process.
+
 [Policies](policies/index.qmd)
 : General, publicly shareable information on how the lab operates.
 
