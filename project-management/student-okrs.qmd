@@ -1,0 +1,167 @@
+---
+title: "Tracking Student Progress with OKRs"
+description: "How we set, track, and review termly Objectives and Key Results for research students, and how we run the record-keeping through GitHub."
+categories: [Project Management, OKRs]
+---
+
+## Why OKRs for a research group
+
+Standard project management assumes you can specify the work up front and then execute against that 
+specification. That assumption may hold for construction or manufacturing, but it usually doesn't 
+work for research. In research, the deliverable itself is often unknown and the plan is expected to 
+change as results come in.
+
+Objectives and Key Results (OKRs) were built for a similar kind of uncertainty in fast-moving 
+product teams. The idea is simple. Fix an ambitious direction, then let the tactics underneath it 
+get rewritten on a regular, short cycle. That fits a research group well. A multi-year thesis 
+timeline stays mostly fixed. What happens inside any given term should not.
+
+## Three layers, three timescales
+
+| Layer | Timescale | How often it changes | Where it lives |
+|---|---|---|---|
+| Milestone map | Multi-year | Rarely | A document per student, updated as needed |
+| Term OKRs | One term | Every term | The template below |
+| Execution | Weekly | Constantly | Weekly check-ins and a task board |
+
+The OKRs are the translation step between the two ends. They take a fixed multi-year milestone 
+and ask what an honest, ambitious version of progress looks like over the next 4-month semester. 
+Nobody replans the whole degree every term. Everybody replans the next term, every term.
+
+## How the OKRs themselves work
+
+**Objective.** One sentence, qualitative, ambitious. A direction worth pushing toward, not a 
+checklist item.
+
+**Key Results.** Two to four measurable outcomes that would only be true if the Objective actually 
+happened. Each gets scored from 0.0 to 1.0 at the end of the term rather than marked simply done or 
+not done.
+
+**Scoring convention.** An average around 0.7 across a student's Key Results counts as a good term. 
+Landing at 1.0 across the board usually means the Key Results were set too conservatively, not that 
+the term went perfectly. This matters because it changes what people are willing to write down at 
+the start of the term. If hitting 100% is the expectation, everyone writes safe targets. Evaluating 
+on a curve that rewards ambition gets the honest version onto the page instead.
+
+## The term cycle
+
+1. **Week 1.** Supervisor and student set the term's Objective and Key Results together, in a short 
+one-on-one conversation. Prior to this meeting, the student is expected to have done some preliminary
+brainstorming and should come prepared with ideas for the term's direction. A group-level Objective 
+for the term as a whole is set separately by the supervisor and shared with the group.
+2. **Ongoing.** Weekly check-ins and a shared task board carry the week-to-week detail. There is no 
+need to touch the OKR document itself between term start and the mid-term check.
+3. **Mid-term.** A short confidence check per student. On track, at risk, or off track, with one line 
+explaining why. This is also a natural point to notice whether the whole system is being used or 
+quietly going stale.
+4. **End of term.** The student self-scores each Key Result and writes a short reflection before the 
+review meeting, then discusses it with the supervisor. Anything scored low but still relevant carries 
+forward into the next term's Key Results. Anything low but no longer the right target is simply 
+dropped, with no penalty for a term's plan turning out to be wrong.
+
+## Template
+
+### Group-level OKR (one per term)
+
+```
+Objective:
+
+KR1:
+KR2:
+KR3:
+```
+
+### Individual OKR sheet (one per student, per term)
+
+```
+Objective:
+
+KR1:
+KR2:
+KR3:
+KR4 (optional):
+
+Mid-term confidence check:
+  Status: [on track / at risk / off track]
+  Why (one line):
+
+End of term:
+  KR1 score (0.0-1.0):
+  KR2 score:
+  KR3 score:
+  KR4 score:
+  Reflection (2-3 sentences):
+  Carry forward into next term:
+```
+
+### Objective examples by stage
+
+These are starting points, not a script. The right Objective for a given student depends on where 
+they actually are.
+
+**Early stage**, building competence, no independent results yet.
+Objective: build independent command of the core tool or method and produce a first credible result.
+Key results: complete the core tutorial set unassisted, reproduce a known benchmark within a stated 
+error tolerance, present a first talk on the result.
+
+**Mid stage**, has a working method, needs to convert it into output.
+Objective: turn the validated method into a paper-ready contribution.
+Key results: submit a conference abstract, complete a parameter study across a defined set of 
+conditions, draft a methods section.
+
+**Late stage**, approaching thesis defense.
+Objective: close remaining chapters and reach defense-ready status.
+Key results: submit a chapter draft for committee review, incorporate feedback within a set 
+turnaround, confirm a defense date.
+
+### Worked example
+
+```
+Objective: Get the coupled model to a state where it can generate publishable results.
+
+KR1: Core numerical method validated against an analytical case (target error < 5%)
+KR2: Full model run across at least 3 representative conditions
+KR3: First draft of methods section written
+
+Mid-term confidence check:
+  Status: at risk
+  Why: KR1 took twice as long as expected, chasing down a conservation error
+
+End of term:
+  KR1 score: 0.8 (validated, error slightly above target, cause documented)
+  KR2 score: 0.3 (ran 1 of 3 conditions, the KR1 debugging ate the term)
+  KR3 score: 0.0 (not started)
+  Reflection: the debugging detour was worth it and the fix should make the
+  remaining runs faster, but it consumed the term.
+  Carry forward: run the remaining 2 conditions, draft the methods section.
+```
+
+## Record-keeping through GitHub
+
+We keep each student's OKR history in a private repository, one per student, so a student can see 
+and edit only their own record. A student is added as a collaborator with write access rather 
+than admin access, so they can open pull requests but cannot change repository settings.
+
+Inside each repository, one file per term holds that term's Objective, Key Results, and the eventual 
+end-of-term scoring, so a student's full multi-year record accumulates as a sequence of files with 
+full git history behind it.
+
+The review cycle maps onto pull requests directly. At term start, the student opens a pull request 
+adding the new term's file with a draft Objective and Key Results. The supervisor reviews it as they 
+would review code, pushes back inline on anything too vague or too safe, and merges once it reflects 
+real agreement. At term end, the student opens a second pull request against the same file with their 
+self-scores and reflection filled in, and the same review-and-merge pattern applies. Branch protection 
+at the repository level requires supervisor approval before either pull request can merge, so nothing 
+becomes final without a conversation happening first.
+
+A template repository with the file structure and a short README makes spinning up a new student's 
+repository fast, and it keeps every student's record following the same shape without extra effort 
+each term.
+
+## Adapting this elsewhere
+
+None of this depends specifically on GitHub. Any version control system with pull or merge requests 
+and per-repository or per-branch permissions would support the same workflow. What matters is the 
+shape of the process, not the tool: a private, student-owned record, a lightweight review step built 
+into how the record gets updated, and a fixed cadence that keeps the whole thing from either 
+disappearing or turning into unreviewed busywork.
