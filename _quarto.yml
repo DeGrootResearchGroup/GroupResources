@@ -31,6 +31,8 @@ website:
         href: software/index.qmd
       - text: OpenFOAM
         href: openfoam/index.qmd
+      - text: Project Management
+        href: project-management/index.qmd
       - text: Policies
         href: policies/index.qmd
     right:
@@ -45,6 +47,8 @@ website:
       contents: software
     - title: "OpenFOAM"
       contents: openfoam
+    - title: "Project Management"
+      contents: project-management
     - title: "Policies"
       contents: policies
   page-footer:

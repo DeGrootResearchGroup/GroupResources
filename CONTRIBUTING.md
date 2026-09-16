@@ -45,6 +45,7 @@ This is not a course site, so there is no enrollment-gated or graded content.
 | CFD and numerical methods explainers | `theory/` |
 | How-tos for software the group uses | `software/` |
 | Using and understanding OpenFOAM | `openfoam/` |
+| How we plan and track research work | `project-management/` |
 | General, public lab operating information | `policies/` |
 
 Use a short, lowercase, hyphenated file name, for example `software/openfoam-first-case.qmd`.
@@ -68,7 +69,7 @@ categories: [Software, matplotlib, Python]
 ---
 ```
 
-Section categories are `Theory`, `Software`, `OpenFOAM` and `Policies`. Add further categories as topic tags.
+Section categories are `Theory`, `Software`, `OpenFOAM`, `Project Management` and `Policies`. Add further categories as topic tags.
 
 ### Images
 

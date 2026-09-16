@@ -1,0 +1,14 @@
+---
+title: "Project Management"
+description: "How we plan and track research progress, from termly objectives down to the tools that run the process."
+categories: [Project Management]
+listing:
+  contents: "*.qmd"
+  type: table
+  sort: title
+  fields: [title, description]
+---
+
+How the group plans and tracks research work across timescales — from a student's multi-year
+milestone map, down to what changes term to term, down to the weekly record-keeping that carries
+it all.
