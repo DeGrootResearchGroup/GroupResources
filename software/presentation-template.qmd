@@ -4,10 +4,10 @@ description: "The group's branded Quarto slide template, and how to install Quar
 categories: [Software, Quarto, Presentations]
 ---
 
-A [Quarto](https://quarto.org) revealjs template for talks, defenses and group meetings: Western
-purple headings, a footer with the Western Engineering logo, and a fixed 16:9 slide size that
-doesn't reflow or "float" the way a plain web page does. Titles sit in a consistent header
-position at the top of every slide, following the
+This page presents a [Quarto](https://quarto.org) [reveal.js](https://revealjs.com) slide
+template for talks, defenses, group meetings, etc. The template features Western
+purple headings, a footer with the Western Engineering logo, and a fixed 16:9 slide size. 
+Titles sit in a consistent header position at the top of every slide, following the
 [Assertion-Evidence](https://www.assertion-evidence.com/) approach to research-slide design.
 
 ## Download
@@ -15,8 +15,8 @@ position at the top of every slide, following the
 [**Download the template (.zip)**](presentation-template-files/presentation-template.zip)
 
 Unzip it wherever you keep the talk, and rename `template.qmd` to something meaningful (e.g.
-`slides.qmd`). It's four files: the slide source (`template.qmd`), the theme
-(`theme.scss`), the Western Engineering logo (`img/logo.png`), and a `README.md` with
+`csme-talk.qmd`). The template includes four files: the slide source (`template.qmd`), the 
+theme (`theme.scss`), the Western Engineering logo (`img/logo.png`), and a `README.md` with
 maintainer-level notes on the CSS if you need to customize the layout further.
 
 To browse the source instead, or grab a single file, it's in the repository at
@@ -73,7 +73,7 @@ explaining the less obvious parts. To use a different logo, replace `img/logo.pn
 
 ## Export to PDF
 
-For a PDF you can email or upload (a defense committee, a conference submission), use
+To create a PDF that can be more easily distributed, use
 [decktape](https://github.com/astefanutti/decktape), which drives a real reveal.js presentation
 page-by-page rather than relying on browser print layout:
 
