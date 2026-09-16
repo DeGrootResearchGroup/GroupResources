@@ -1,0 +1,12 @@
+/* Quarto renders a page's `description:` frontmatter as the first thing under
+   the title/categories, but it's otherwise unstyled — visually identical to
+   the body paragraph that follows it, so it reads as an odd first line of
+   body text rather than a tagline. This sets it off as a distinct lede. */
+#title-block-header .description {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--bs-secondary-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--bs-border-color);
+}
