@@ -27,3 +27,8 @@ Group members add and improve pages through pull requests on
 [GitHub](https://github.com/DeGrootResearchGroup/GroupResources). See the
 [contributing guide](https://github.com/DeGrootResearchGroup/GroupResources/blob/main/CONTRIBUTING.md)
 to get started.
+
+## Suggest a Page
+
+If you'd like to suggest a new page, please open an [issue](https://github.com/DeGrootResearchGroup/GroupResources/issues) 
+on the GitHub repository.
