@@ -1,6 +1,6 @@
 ---
 title: "Initial and Final Residuals in OpenFOAM"
-description: "**Goal:** Learn how to interpret the initial and final residuals reported in OpenFOAM."
+description: "Learn how to interpret the initial and final residuals reported in OpenFOAM."
 categories: [OpenFOAM, linear solvers, convergence]
 ---
 
