@@ -1,0 +1,86 @@
+---
+title: "Presentation Title"
+subtitle: "A short subtitle if you need one"
+author: "Your Name"
+institute: "Department of Mechanical and Materials Engineering<br>Western University"
+date: last-modified
+format:
+  revealjs:
+    theme: [default, theme.scss]
+    logo: img/logo.png
+    # Shown centered in the footer bar on every slide — swap per talk, e.g.
+    # a conference name ("ASME IMECE 2026") or defense committee.
+    footer: "DeGroot Research Group"
+    slide-number: true
+    width: 1280
+    height: 720
+    margin: 0.08
+    center: false
+    transition: fade
+    highlight-style: github
+    html-math-method: katex
+---
+
+## Outline
+
+- What the problem is and why it matters
+- Method / approach
+- Results
+- Conclusions and next steps
+
+::: {.notes}
+Speaker notes go here — press `s` while presenting to open the notes view.
+:::
+
+## A bullet slide
+
+- Keep to one idea per line
+- Use `.smaller` on a slide if content is dense:
+
+## A dense slide {.smaller}
+
+- This heading class shrinks the whole slide's font size
+- Useful for a results table or a long derivation you don't want to split
+
+## Two columns
+
+::: {.columns}
+::: {.column width="50%"}
+### Left
+
+- Point one
+- Point two
+:::
+
+::: {.column width="50%"}
+### Right
+
+- Point three
+- Point four
+:::
+:::
+
+## An image slide
+
+![Caption goes here — swap the path for your own figure](img/logo.png){width="50%" fig-align="center"}
+
+## Math
+
+Governing equation:
+
+$$
+\frac{\partial u}{\partial t} + u \cdot \nabla u = -\frac{1}{\rho}\nabla p + \nu \nabla^2 u
+$$
+
+## Code
+
+```{.python}
+import numpy as np
+
+def reynolds_number(rho, u, L, mu):
+    return rho * u * L / mu
+```
+
+## Questions?
+
+Contact: your.name@uwo.ca
