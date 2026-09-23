@@ -1,0 +1,109 @@
+---
+title: "Making Requests: The Request Queue Workflow"
+description: "Why asynchronous requests to your supervisor go through a request queue instead of email or Slack, and how the workflow works in practice."
+categories: [Policies, Communication]
+---
+
+## The problem this solves
+
+Most research groups run coordination through email and chat: a student sends a message, the
+supervisor reads it whenever they next check their inbox, and from that point the request lives
+as an open loop in both people's heads until it's resolved. Cal Newport calls this the
+**hyperactive hive mind** workflow in *A World Without Email* — work gets accomplished through
+an ongoing stream of ad hoc, unscheduled messages, with no defined process for how a request
+moves from "sent" to "done." Every message demands a decision: read it now or lose track of it,
+reply now or potentially lose track of it later.
+
+Two costs follow from this. First, **attention residue**: switching from focused work to answer
+a message doesn't just cost the minute it takes to reply. Attention lingers on the interrupted
+task, and again on the message, for a while after the switch, which is part of why "I'll just
+answer this quickly" so reliably costs more than a quick moment. Second, **underspecified
+requests generate their own overhead**. A message like "can you take a look at my draft?"
+looks fast to send, but if it doesn't say what kind of look, by when, or against what standard,
+it turns into a back-and-forth negotiation before any actual work happens. This back-and-forth
+competes for the same inbox attention as everything else.
+
+None of this is a complaint about email as a technology. It's a description of what happens by
+default when a channel designed for quick, synchronous-feeling exchanges is used to route actual
+work.
+
+## The reverse task list
+
+*Slow Productivity*, also by Newport, describes an alternative: a **reverse task list**. Instead
+of a system where anyone can add something to your plate at any moment simply by sending a
+message (a *push* system), a reverse task list is a *pull* system. Requests accumulate in a
+queue that the recipient reviews and pulls from on their own schedule, rather than being
+forced into their attention in real time.
+
+The request queue applies that idea directly, built around three rules:
+
+1. **The requester bears the burden of specifying the request clearly.** This saves the recipient
+   from having to deal with vague requests for which additional information needs to be requested.
+   Each of these exchanges costs time and leads to delays.
+2. **Submitting a request does not mean it has been accepted.** Larger requests ("Long Actions")
+   go into a review queue and are explicitly accepted or declined, rather than silently becoming
+   an obligation the moment they're sent.
+3. **Once accepted, you can see the status yourself.** No follow-up email needed to ask "did you
+   see this?" or "where is this in the queue?"
+
+## How it works
+
+Requests go in through a public submission form at
+[tasks.chrisdegroot.ca](https://tasks.chrisdegroot.ca). There's no login for requesters. Each
+submission gets a private tracking link instead (more on that below).
+
+**Every request is classified at submission time.** The form asks one question: could this
+reasonably be completed in about 10 minutes once your supervisor opens it, including reading any
+linked material?
+
+- **Quick Actions** (yes) go straight into a queue and get worked through in a batch session,
+  in order of urgency and then age.
+- **Long Actions** (no) go to a review queue first. Your supervisor either **accepts** it (it
+  joins an ordered queue of accepted work), **declines** it with a reason, or asks a clarifying
+  question before deciding.
+
+**Requests are supposed to be self-contained.** The form asks for a clear description of the
+action needed, any relevant links, and whatever context is needed to act on it without further 
+discussion. There's a checkbox confirming you believe everything needed is there. This friction 
+is deliberate: it's the mechanism that enforces rule 1 above. Writing the request out completely 
+up front is almost always faster overall than an underspecified request bouncing back and forth 
+over several exchanges.
+
+**If something's missing, the request comes back to you, not into a conversation.** Rather than
+your supervisor guessing or messaging you to ask, the request moves to a "Needs Information"
+state with a specific question attached. You get notified, answer it through your tracking link,
+and the request resumes automatically (right back into the queue near where it left off, not at
+the end).
+
+**You track status through a private link, so you don't need to ask about it.** Submitting (or 
+being asked for information) gives you a tracking URL. You should save it, so you can refer back
+later. That page shows the request's current status, its position in the queue if it's an accepted 
+Long Action, and its full history. You'll also get pinged automatically by email when your request 
+is received, accepted, declined, needs more information, or completed. In practice you shouldn't 
+need to check the link proactively very often, since you will get these email updates, but provides
+a means to check on the status in between. 
+
+## What this isn't for
+
+The request queue is specifically for asynchronous, well-defined work requests. It is not a
+replacement for every kind of communication with your supervisor.
+
+- **Not for scheduling meetings.** If you need to actually talk something through, use the
+  meeting booking link on the submission page instead. The whole point of the queue is to handle
+  requests that *don't* need a live conversation.
+- **Not for quick clarifying chats.** If a request is genuinely just a quick question with an
+  answer that doesn't require any real work, the queue adds overhead rather than removing it —
+  ask directly instead.
+- **Not a general project-management tool.** It doesn't replace your OKRs (see
+  [Tracking Student Progress with OKRs](../project-management/student-okrs.qmd)) or a shared task 
+  board for ongoing work. It's for one-off requests directed at your supervisor specifically: 
+  reviewing something, approving something, making a decision, signing something.
+
+## Further reading
+
+- Cal Newport, *Slow Productivity* — the reverse task list / pull-based workflow this system is
+  built around.
+- Cal Newport, *A World Without Email* — the hyperactive hive mind workflow problem, and why
+  process-driven alternatives beat ad hoc messaging for anything beyond a quick exchange.
+- Cal Newport, *Deep Work* — attention residue, and why context-switching costs more than it
+  appears to in the moment.
