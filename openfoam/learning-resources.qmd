@@ -1,0 +1,36 @@
+---
+title: "OpenFOAM Learning Resources"
+description: "A curated list of external tutorials, courses and documentation for learning OpenFOAM."
+categories: [OpenFOAM, learning resources]
+---
+
+This page collects external material that the group has found useful for learning OpenFOAM. Each
+entry says what it covers and, where it matters, which OpenFOAM version it was written for. Material
+written for one version often needs small changes to work with the other (see the
+[OpenFOAM section overview](index.qmd) for the difference between openfoam.org and openfoam.com).
+
+To suggest a resource, add an entry under the most suitable heading in a pull request. Link to the
+original source rather than adding a copy of the file to this repository.
+
+## Official documentation
+
+- [OpenFOAM User Guide (openfoam.org)](https://doc.cfd.direct/openfoam/user-guide/): the user
+  guide for the OpenFOAM Foundation version, maintained by CFD Direct. Covers case structure, meshing,
+  running applications and post-processing.
+- [OpenFOAM documentation (openfoam.com)](https://www.openfoam.com/documentation/overview): the
+  documentation hub for the ESI-OpenCFD version, including the user guide, tutorial guide and API
+  reference.
+
+## Courses and tutorial collections
+
+- [CFD with OpenSource Software (Chalmers University of Technology)](https://www.tfd.chalmers.se/~hani/kurser/OS_CFD/):
+  a course taught by Håkan Nilsson. Its page lists lecture notes and years of peer-reviewed
+  student reports (organized by year), covering a wide range of OpenFOAM topics, from basic use to
+  implementing new solvers and boundary conditions. Check which version each report was written for.
+
+## Development and debugging
+
+- [Using Visual Studio Code for debugging in OpenFOAM](https://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2025/additionalMaterial/VSCodeDebuggingOpenFOAM.pdf)
+  (Fjällborg and Salehi, CFD with OpenSource Software, Chalmers): shows how to set up VS Code with
+  gdb so you can step through OpenFOAM source code with breakpoints and inspect variables, including
+  debugging on a remote cluster over SSH. Written for openfoam.com v2506.
