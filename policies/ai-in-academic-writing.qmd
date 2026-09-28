@@ -1,0 +1,283 @@
+---
+title: "Using AI in Academic Writing"
+description: "How to use AI tools carefully in literature searches, drafting, and self-review. What the group requires when you do: citation folders, disclosure, and a usage log."
+categories: [Policies, Writing, AI]
+---
+
+## Why this policy exists
+
+AI tools can be a real help in academic writing. They can speed up literature searches, help you
+triage a stack of papers, and give you honest feedback on a draft before anyone else sees it. They
+can also produce confident, elegant text that is wrong, cite papers that don't exist, and quietly
+replace your thinking with theirs. Both of these are showing up in the work I receive, so it's worth
+being explicit about what good use looks like.
+
+This is not an AI ban. Personally, I use AI in a lot of my work and I find it effective for many 
+different tasks. My goal with this policy is to make sure AI is used carefully and thoughtfully, 
+and that the work you put forward is still yours.
+
+The underlying principle is simple: **you must own the work and be able to defend it.** Every
+claim, every sentence, and every citation. If you can't explain why something is in your paper,
+where it came from, and why you believe it, then it isn't really your work yet. Keep working on it
+until you can defend it fully and are confident in what you are putting forward.
+
+Two things make this especially important for trainees:
+
+- **My name goes on the work too.** Before anything is submitted with my name on it, I need to be
+  able to do my own due diligence. The requirements below are designed to make that possible.
+- **Writing is a skill you build by doing it.** If AI does the writing, you don't learn to write.
+  An early study from MIT[^brain] found that people who wrote essays with an AI assistant showed
+  lower cognitive engagement, and most of them couldn't quote a passage from the essay they had
+  just "written". It's a small study and its conclusions have been debated, but the direction
+  matches what I see. By handing off the work of writing means you don't get better at it.
+
+[^brain]: Kosmyna et al., "Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI
+    Assistant for Essay Writing Task," 2025. [arXiv:2506.08872](https://arxiv.org/abs/2506.08872).
+
+## Guiding principles
+
+1. **You are accountable for everything.** Journals, funders, and the university all agree that AI
+   cannot be an author, because it cannot take responsibility for the work. That responsibility
+   is yours.
+2. **AI supports your thinking; it doesn't replace it.** Use it to search, sort, question and
+   polish. The ideas, the argument and the judgement have to come from you.
+3. **Be transparent.** Tell me how you used AI, keep a record, and disclose it wherever it's
+   required.
+4. **Protect what isn't yours to share.** Unpublished results, other people's manuscripts, and
+   potentially patentable ideas need to stay out of places where they could leak.
+
+## Where AI is most useful
+
+### Writing database search queries
+
+Building a good search string for scholarly databases like Scopus and Web of Science, is
+tedious: you need synonyms, alternative spellings, Boolean logic, and the right field codes for
+each database. AI is very good at this. Describe what you're looking for and ask for a query you
+can paste in, then refine it based on what comes back.
+
+```text
+I'm doing a literature search on [topic] for [purpose, e.g. a thesis chapter on ...].
+I'm particularly interested in [specific aspects], and I want to exclude [things that
+are out of scope].
+
+Write a search query for [Scopus / Web of Science / ...] using that database's syntax.
+Include common synonyms and alternative terms, and explain each part of the query so I
+can adjust it.
+```
+
+You still decide which results are relevant. The AI is building the net, not choosing the fish.
+
+### Triaging articles before you read them in full
+
+A short summary can help you decide which papers deserve a full read. This works much better if
+you tell the model **what you're looking for**, so it pulls out what's relevant to you instead of
+giving a generic summary of the abstract.
+
+```text
+I'm attaching a paper. I'm deciding whether to read it in full for a literature review on
+[topic]. Specifically, I care about:
+
+- [e.g. which turbulence models were used and how they were validated]
+- [e.g. whether they report mesh sensitivity results]
+- [e.g. operating conditions or geometry comparable to ...]
+
+In under 200 words, tell me what the paper does, then answer each point above. For each
+answer, say where in the paper you found it (section or page). If the paper doesn't
+address a point, say so rather than guessing.
+```
+
+Asking for locations in the paper lets you check the summary quickly, and asking the model to say
+when something isn't addressed discourages it from filling gaps with plausible-sounding guesses. A
+summary is a filter, not a substitute: anything you cite, you need to have read.
+
+### Reviewing your own draft
+
+In my experience, this is the most valuable use of AI in writing: as a reviewer, not a writer.
+
+**Language and flow.** AI is good at catching grammar problems, awkward sentences, inconsistent
+terminology, and paragraphs that don't connect. Ask it to *point out* problems and explain them,
+rather than silently rewriting your text, so you stay in control of the changes and learn from
+them.
+
+**Mock peer review.** Before a paper goes to me (or to a journal), have the AI review it from
+three different perspectives:
+
+1. An expert in the **exact field** of the work.
+2. An expert in an **adjacent field**.
+3. A researcher in the **same broad field** with no expertise in your specific topic.
+
+You must name the actual fields in the prompt. "An expert in the field" gives vague feedback;
+"an expert in large-eddy simulation of turbulent combustion" gives useful feedback.
+
+```text
+I'm attaching a draft manuscript I intend to submit to [journal]. Please review it as three
+separate peer reviewers, each writing an independent report:
+
+- Reviewer 1: an expert in [exact field, e.g. immersed boundary methods for fluid-structure
+  interaction].
+- Reviewer 2: an expert in [adjacent field, e.g. experimental biomechanics of heart valves].
+- Reviewer 3: a researcher in [broad field, e.g. computational fluid dynamics] with no
+  specific expertise in this topic.
+
+For each reviewer, give a short summary of the paper, the major concerns, minor comments,
+and a recommendation (accept, minor revision, major revision, reject). Focus on gaps in the
+argument, missing comparisons or validation, unclear explanations, and claims that are not
+supported by the results. Be critical; do not soften the feedback.
+```
+
+Then treat the output like a real round of peer review. Go through each comment, decide whether
+it's valid, and revise the paper as you normally would. Not every comment will be right, and
+you should be able to explain why you rejected the ones you did. I've found this reliably
+surfaces gaps I hadn't thought about and highlights sections that are unclear to anyone who isn't
+as deeply involved in the work as I am.
+
+Only do this with **your own** work. Using AI to review a manuscript or proposal you've been sent
+as a reviewer is a different matter; see [Confidentiality](#sec-confidentiality).
+
+## Where to be careful
+
+### References and literature reviews
+
+**Never let AI generate references.** AI models are well documented to fabricate citations. Studies
+of ChatGPT-generated references have found that a large share don't exist at all, and many of the
+rest have the wrong authors, year, or details.[^refs] The fabricated ones look entirely convincing:
+real author names, real journals, and correctly formatted DOIs.
+
+[^refs]: For example, Walters and Wilder, "Fabrication and errors in the bibliographic citations
+    generated by ChatGPT," *Scientific Reports* 13, 14045 (2023),
+    [doi:10.1038/s41598-023-41032-5](https://doi.org/10.1038/s41598-023-41032-5); and Bhattacharyya
+    et al., "High Rates of Fabricated and Inaccurate References in ChatGPT-Generated Medical
+    Content," *Cureus* 15, e39238 (2023),
+    [doi:10.7759/cureus.39238](https://doi.org/10.7759/cureus.39238). Newer models do better, but
+    none are reliable enough to trust without checking.
+
+The rule for the group:
+
+- AI may **suggest** articles you should look at. Treat these as leads, not citations.
+- AI must **not cite anything** in your writing unless you have explicitly approved it.
+- Before anything is cited, **find the real full-text PDF** yourself and read at least the key
+  sections relevant to how you are intending to cite it.
+- If you want AI to help with a section that draws on the literature, **give it the real PDFs**
+  and tell it to work only from those files. This is the most effective way to keep invented
+  references out of your work.
+
+This also feeds directly into the [citation folder requirement](#sec-requirements) below.
+
+### Drafting text
+
+AI is of limited use for writing the prose itself, unless you give very specific instructions about
+what you want for a particular section. You need to drive this process if you are going to call it
+your own work.
+
+- **Don't ask AI to write a whole document from scratch in one go.** What comes back will be
+  generic, will reflect the model's ideas rather than yours, and will be very hard to review
+  properly.
+- **Start with an outline.** An outline is a reasonable thing to ask AI to help with. Then review
+  it critically and edit it until it reflects the argument *you* want to make: reorder it, cut
+  things, add what's missing.
+- **If AI drafts a section, edit it thoroughly and question everything.** Is this claim true? Is it
+  supported by a source? Ask the model where each claim comes from, then check the source yourself.
+  Assume anything you can't verify is wrong.
+- **Ask whether it says what you mean.** For each paragraph, ask yourself whether it accurately
+  represents your ideas and your results. If it doesn't, rewrite it in your own words. Something that
+  reads well is not the same as it being correct. Polished text that says something slightly different 
+  from what you meant is worse than rough text that says exactly what you meant.
+
+A useful test: could you defend every sentence in front of your committee without looking at your
+notes? If not, you're not ready to call this your own work.
+
+### Confidentiality and data training {#sec-confidentiality}
+
+Anything you paste or upload into an AI tool leaves your control. Two things follow from that.
+
+**Turn off training on your data.** Many AI services, especially free personal accounts, can use
+your conversations to train future models. Unpublished results, draft papers, and new ideas could
+then be exposed. That can compromise a paper, and for anything potentially patentable, it can
+compromise the patent. Check the privacy or data settings on every AI account you use and make 
+sure model training on your data is **off**. If a service doesn't let you turn it off, don't use 
+it for your research work.
+
+**Don't upload other people's confidential material.** Manuscripts you've been asked to review,
+grant proposals you're evaluating, and collaborators' unpublished work are not yours to share.
+Publishers and the federal funding agencies explicitly prohibit reviewers from putting this
+material into AI tools.[^review] The same applies to anything covered by an industry or
+collaboration agreement.
+
+[^review]: See, for example, COPE's position on AI and the Tri-Agency
+    [guidance on the use of AI in developing and reviewing research proposals](https://science.gc.ca/site/science/en/interagency-research-funding/policies-and-guidelines/guidance-use-artificial-intelligence-development-and-review-research-grant-proposals).
+
+## Recommended tool
+
+The group has a Claude subscription, and **that's what I recommend you use for your research work.** 
+It gives you a paid-level account at no cost to you, which matters for the workflows on this page:
+uploading full-text papers, long drafts, and sets of PDFs is often not practical on a free personal
+account. It also keeps group work under one set of data and privacy settings. If you need access,
+ask me.
+
+You're not required to use it, but if you use something else, the same rules apply. Check the data
+training settings, and record what you used.
+
+## Group requirements {#sec-requirements}
+
+These apply to any written work you give me: papers, thesis chapters, conference abstracts,
+proposals, and reports.
+
+1. **Citation folder.** Submit a shared folder containing the full-text PDF of every article you
+   cite. This lets me do my own due diligence before anything goes out with my name on it. If you
+   can't find a PDF for something you've cited, that's a sign you should check whether you've
+   really read it. If you are citing a physical book, you do not have to obtain a PDF, but you
+   must attest that you've actually read the relevant sections of the book that you are citing. 
+2. **Disclose your AI use to me.** When you hand in written work, tell me at a high level which AI
+   tools you used and what you used them for.
+3. **Keep a usage log.** Keep a record of the models you've used (name and version) and how you
+   used them. This doesn't need to be a daily session log; it's a high-level record so we can
+   write an accurate disclosure later. A suggested format is below, and you can adapt it to your
+   needs.
+4. **Disclose externally when required.** Journals, conferences, funders, and the graduate school
+   increasingly require AI use to be disclosed, and their rules differ (some want a separate
+   declaration section, some want it in the methods, some exempt basic copy-editing). Check the
+   requirements for wherever the work is going. Your usage log makes this straightforward. Western's
+   graduate studies guidance also expects you to discuss AI use in your research with your
+   supervisor and committee.[^western]
+5. **Protect confidential information.** Follow the [confidentiality](#sec-confidentiality) rules
+   above.
+
+[^western]: Western University School of Graduate and Postdoctoral Studies,
+    [Guidance for the use of Generative AI in Graduate Studies](https://grad.uwo.ca/about_us/policies_procedures_regulations/ai.html).
+
+### Suggested usage log
+
+Keep one log per piece of work (for example, a text file or table alongside the manuscript or in
+the citation folder). One row per *kind* of use is enough; you don't need an entry every time you
+open a chat.
+
+| Tool and model version | Used for | Parts of the work affected | Notes |
+|---|---|---|---|
+| Claude Opus 5.5 | Building Scopus search queries | Literature review | Refined manually; results screened myself |
+| Claude Opus 5.5 | Targeted summaries to triage ~40 papers | Literature review | Every cited paper read in full |
+| Claude Sonnet 5 | Grammar and flow review | Whole manuscript | Suggestions accepted or rejected individually |
+| Claude Opus 5.5 | Three-persona mock peer review | Whole manuscript | Revised sections 3 and 5 in response |
+
+Record the model name and version as the tool reports it, since journals increasingly ask for
+this.
+
+## Quick reference
+
+| Good uses | Avoid |
+|---|---|
+| Writing and refining database search queries | Letting AI generate or insert citations |
+| Targeted summaries to decide what to read | Citing a paper you've only read a summary of |
+| Getting help with an outline, then revising it yourself | Asking for a whole document in one go |
+| Working from real PDFs you've provided | Trusting claims you haven't checked against a source |
+| Grammar, clarity and flow review | Accepting rewrites that don't say what you mean |
+| Mock peer review of your own draft | Uploading manuscripts or proposals you're reviewing for someone else |
+| Using the group account with training off | Using accounts that train on your data |
+
+## Further reading
+
+- Western University, [Guidance for the use of Generative AI in Graduate Studies](https://grad.uwo.ca/about_us/policies_procedures_regulations/ai.html).
+- CIHR, NSERC, SSHRC and CFI, [Guidance on the use of Artificial Intelligence in the development and review of research grant proposals](https://science.gc.ca/site/science/en/interagency-research-funding/policies-and-guidelines/guidance-use-artificial-intelligence-development-and-review-research-grant-proposals).
+- Committee on Publication Ethics (COPE), [Authorship and AI tools](https://publicationethics.org/cope-position-statements/ai-author).
+- International Committee of Medical Journal Editors (ICMJE), [Recommendations](https://www.icmje.org/recommendations/), which include guidance on disclosing AI use.
+- Elsevier, [Generative AI policies for journals](https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals).
+- Springer Nature, [Artificial Intelligence (AI) editorial policy](https://www.springernature.com/gp/policies/editorial-policies).
